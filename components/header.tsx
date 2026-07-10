@@ -46,7 +46,7 @@ export function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center shrink-0">
           <img
-            src="https://sorbakalim.fun/logo.png"
+            src="https://i.hizliresim.com/gaq1e9k.png"
             alt="SorBakalım"
             className="h-8 sm:h-9 md:h-10 lg:h-11 xl:h-12 w-auto object-contain"
             draggable={false}
