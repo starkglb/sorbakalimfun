@@ -1,0 +1,150 @@
+generator client {
+  provider      = "prisma-client-js"
+  output        = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid()) @db.Uuid
+  email        String   @unique
+  passwordHash String
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  profile      Profile?
+  notifications Notification[]
+  reports      Report[]   @relation("ReporterReports")
+
+  @@map("users")
+}
+
+model Profile {
+  id           String   @id @default(uuid()) @db.Uuid
+  userId       String   @unique @map("user_id") @db.Uuid
+  username     String   @unique
+  displayName  String?  @map("display_name")
+  bio          String?
+  avatarUrl    String?  @map("avatar_url")
+  coverUrl     String?  @map("cover_url")
+  socialLinks  Json     @default("{}") @map("social_links")
+  isAdmin      Boolean  @default(false) @map("is_admin")
+  isBanned     Boolean  @default(false) @map("is_banned")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages     Message[]
+  activityLogs ActivityLog[] @relation("ActorLogs")
+
+  @@index([username])
+  @@index([createdAt])
+  @@map("profiles")
+}
+
+model Message {
+  id                    String   @id @default(uuid()) @db.Uuid
+  recipientId           String   @map("recipient_id") @db.Uuid
+  content               String
+  isPinned              Boolean  @default(false) @map("is_pinned")
+  isRead                Boolean  @default(false) @map("is_read")
+  isDeletedByRecipient  Boolean  @default(false) @map("is_deleted_by_recipient")
+  senderIp              String?  @map("sender_ip")
+  senderUserAgent       String?  @map("sender_user_agent")
+  senderDevice          String?  @map("sender_device")
+  createdAt             DateTime @default(now()) @map("created_at")
+
+  recipient             Profile  @relation(fields: [recipientId], references: [id], onDelete: Cascade)
+  reports               Report[]
+  notifications         Notification[]
+
+  @@index([recipientId, createdAt(sort: Desc)])
+  @@index([recipientId, isPinned, createdAt(sort: Desc)])
+  @@index([senderIp])
+  @@map("messages")
+}
+
+model Report {
+  id         String    @id @default(uuid()) @db.Uuid
+  messageId  String    @map("message_id") @db.Uuid
+  reporterId String?   @map("reporter_id") @db.Uuid
+  reason     String
+  status     String    @default("pending")
+  createdAt  DateTime  @default(now()) @map("created_at")
+  resolvedAt DateTime? @map("resolved_at")
+
+  message    Message   @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  reporter   User?     @relation("ReporterReports", fields: [reporterId], references: [id], onDelete: SetNull)
+
+  @@index([status, createdAt(sort: Desc)])
+  @@map("reports")
+}
+
+model IpBan {
+  id        String    @id @default(uuid()) @db.Uuid
+  ipAddress String    @unique @map("ip_address")
+  reason    String?
+  createdAt DateTime  @default(now()) @map("created_at")
+  expiresAt DateTime? @map("expires_at")
+
+  @@map("ip_bans")
+}
+
+model DeviceBan {
+  id                String    @id @default(uuid()) @db.Uuid
+  deviceFingerprint String    @unique @map("device_fingerprint")
+  reason            String?
+  createdAt         DateTime  @default(now()) @map("created_at")
+  expiresAt         DateTime? @map("expires_at")
+
+  @@map("device_bans")
+}
+
+model Notification {
+  id        String    @id @default(uuid()) @db.Uuid
+  userId    String    @map("user_id") @db.Uuid
+  type      String
+  messageId String?   @map("message_id") @db.Uuid
+  isRead    Boolean   @default(false) @map("is_read")
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  message   Message?  @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt(sort: Desc)])
+  @@map("notifications")
+}
+
+model ActivityLog {
+  id         String   @id @default(uuid()) @db.Uuid
+  actorId    String?  @map("actor_id") @db.Uuid
+  action     String
+  targetType String?  @map("target_type")
+  targetId   String?  @map("target_id") @db.Uuid
+  metadata   Json     @default("{}")
+  ipAddress  String?  @map("ip_address")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  actor      Profile?  @relation("ActorLogs", fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([createdAt(sort: Desc)])
+  @@map("activity_logs")
+}
+
+model SiteSettings {
+  id                      String   @id @default(uuid()) @db.Uuid
+  siteName                String   @default("SorBakalım") @map("site_name")
+  siteDescription         String   @default("Anonim mesajlaşma platformu") @map("site_description")
+  primaryColor            String   @default("#0ea5e9") @map("primary_color")
+  allowAnonymousMessages  Boolean  @default(true) @map("allow_anonymous_messages")
+  maintenanceMode         Boolean  @default(false) @map("maintenance_mode")
+  messageMaxLength        Int      @default(500) @map("message_max_length")
+  rateLimitPerHour        Int      @default(10) @map("rate_limit_per_hour")
+  createdAt               DateTime @default(now()) @map("created_at")
+  updatedAt               DateTime @updatedAt @map("updated_at")
+
+  @@map("site_settings")
+}
