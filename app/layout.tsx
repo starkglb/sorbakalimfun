@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     template: '%s | SorBakalım',
   },
   description:
-    'SorBakalım ücretsiz bir anonim mesajlaşma platformudur. Profilini oluştur, linkini paylaş ve herkesten dürüst mesajlar al.',
+    'SorBakalım, insanların düşüncelerini özgürce paylaşabildiği, merak ettiklerini sorabildiği ve anonim iletişim kurabildiği yeni nesil bir soru-cevap platformudur.',
   keywords: ['anonim mesaj', 'soru sor', 'mesajlaşma', 'anonymous message', 'sorbakalim'],
   authors: [{ name: 'SorBakalım' }],
   openGraph: {
