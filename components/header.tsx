@@ -41,18 +41,20 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full">
-      <div className="glass-strong border-b">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-          <Link href="/" className="flex items-center gap-2">
-            <Image
-  src="https://sorbakalim.fun/logo.png"
-  alt="SorBakalım"
-  width={500}
-  height={120}
-  className="h-10 w-auto"
-  priority
-/>
-          </Link>
+     <div className="glass-strong border-b">
+  <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+    <Link href="/" className="flex items-center">
+      <img
+        src="https://sorbakalim.fun/logo.png"
+        alt="SorBakalım"
+        className="h-8 sm:h-9 md:h-10 lg:h-11 xl:h-12 w-auto object-contain"
+        draggable={false}
+      />
+    </Link>
+
+    {/* Sağ taraf */}
+  </div>
+</div>
 
           <nav className="hidden items-center gap-1 md:flex">
             {navLinks}
