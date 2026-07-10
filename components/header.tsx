@@ -44,12 +44,14 @@ export function Header() {
       <div className="glass-strong border-b">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
           <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary/70 text-primary-foreground shadow-lg shadow-primary/20">
-              <span className="text-lg font-bold">S</span>
-            </div>
-            <span className="text-xl font-bold tracking-tight">
-              Sor<span className="gradient-text">Bakalım</span>
-            </span>
+            <Image
+  src="https://sorbakalim.fun/logo.png"
+  alt="SorBakalım"
+  width={500}
+  height={120}
+  className="h-10 w-auto"
+  priority
+/>
           </Link>
 
           <nav className="hidden items-center gap-1 md:flex">
