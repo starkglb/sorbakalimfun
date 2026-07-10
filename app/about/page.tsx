@@ -12,11 +12,14 @@ export default function AboutPage() {
           <h1 className="text-2xl font-bold">{t('footer.about')}</h1>
           <p className="text-muted-foreground">{t('site.description')}</p>
           <p className="mt-4">
-            SorBakalım, insanların anonim olarak dürüst mesajlar alabileceği ücretsiz bir platformdur.
-            Profilini oluştur, linkini paylaş ve herkesten geri bildirim al.
+Amacımız; insanların kendilerini daha rahat ifade edebileceği, arkadaşlarıyla daha samimi ve eğlenceli etkileşimler kurabileceği güvenli bir ortam oluşturmaktır. SorBakalım sayesinde kullanıcılar kendi profil bağlantılarını oluşturabilir, çevrelerinden anonim sorular alabilir ve gelen mesajları kolayca yönetebilir.
+
+Platformumuz, kullanıcı deneyimini ön planda tutarak sade, hızlı ve modern bir yapı ile geliştirilmiştir. Gizlilik, güvenlik ve kolay kullanım bizim için en önemli öncelikler arasındadır.
+
+SorBakalım olarak insanların birbirini daha iyi tanımasını, farklı düşüncelerin paylaşılmasını ve dijital dünyada daha özgün iletişim kurulmasını hedefliyoruz.
           </p>
           <p className="mt-4">
-            Platform tamamen ücretsizdir. Premium üyelik, abonelik veya gizli ücret yoktur.
+Sor, keşfet, paylaş. Çünkü her sorunun bir cevabı vardır.
           </p>
         </CardContent>
       </Card>
