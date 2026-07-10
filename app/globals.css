@@ -1,0 +1,184 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 190 30% 96%;
+    --foreground: 200 50% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 200 50% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 200 50% 10%;
+    --primary: 199 89% 48%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 190 20% 90%;
+    --secondary-foreground: 200 50% 15%;
+    --muted: 190 20% 92%;
+    --muted-foreground: 200 15% 40%;
+    --accent: 199 89% 94%;
+    --accent-foreground: 199 89% 35%;
+    --destructive: 0 80% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 160 70% 42%;
+    --success-foreground: 0 0% 100%;
+    --warning: 35 95% 52%;
+    --warning-foreground: 30 50% 15%;
+    --border: 200 20% 85%;
+    --input: 200 20% 85%;
+    --ring: 199 89% 48%;
+    --chart-1: 199 89% 48%;
+    --chart-2: 160 70% 42%;
+    --chart-3: 35 95% 52%;
+    --chart-4: 260 70% 60%;
+    --chart-5: 330 75% 58%;
+    --radius: 1rem;
+    --glass-bg: 255 255 255 / 0.65;
+    --glass-border: 255 255 255 / 0.6;
+    --glass-shadow: 0 8px 32px rgba(6, 95, 110, 0.08);
+  }
+  .dark {
+    --background: 200 50% 5%;
+    --foreground: 190 30% 95%;
+    --card: 200 40% 9%;
+    --card-foreground: 190 30% 95%;
+    --popover: 200 40% 9%;
+    --popover-foreground: 190 30% 95%;
+    --primary: 199 89% 55%;
+    --primary-foreground: 200 50% 5%;
+    --secondary: 200 30% 14%;
+    --secondary-foreground: 190 30% 95%;
+    --muted: 200 30% 14%;
+    --muted-foreground: 190 20% 60%;
+    --accent: 200 30% 18%;
+    --accent-foreground: 190 30% 95%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 160 70% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 35 95% 55%;
+    --warning-foreground: 30 50% 10%;
+    --border: 200 30% 16%;
+    --input: 200 30% 18%;
+    --ring: 199 89% 55%;
+    --chart-1: 199 89% 55%;
+    --chart-2: 160 70% 50%;
+    --chart-3: 35 95% 55%;
+    --chart-4: 260 70% 65%;
+    --chart-5: 330 75% 62%;
+    --glass-bg: 20 30 50 / 0.4;
+    --glass-border: 255 255 255 / 0.06;
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+  }
+}
+
+@layer components {
+  .glass {
+    background: rgb(var(--glass-bg) / 0.7);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgb(var(--glass-border));
+    box-shadow: var(--glass-shadow);
+  }
+  .dark .glass {
+    background: hsl(var(--card) / 0.5);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid hsl(var(--border) / 0.5);
+  }
+  .glass-strong {
+    background: rgb(var(--glass-bg) / 0.85);
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
+    border: 1px solid rgb(var(--glass-border));
+    box-shadow: var(--glass-shadow);
+  }
+  .dark .glass-strong {
+    background: hsl(var(--card) / 0.7);
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
+    border: 1px solid hsl(var(--border) / 0.5);
+  }
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(260 70% 60%));
+  }
+  .bg-mesh {
+    background-image:
+      radial-gradient(at 15% 15%, hsl(var(--primary) / 0.14) 0px, transparent 50%),
+      radial-gradient(at 85% 5%, hsl(260 70% 60% / 0.1) 0px, transparent 50%),
+      radial-gradient(at 5% 85%, hsl(160 70% 42% / 0.08) 0px, transparent 50%),
+      radial-gradient(at 90% 90%, hsl(199 89% 55% / 0.06) 0px, transparent 50%);
+  }
+  .dark .bg-mesh {
+    background-image:
+      radial-gradient(at 15% 15%, hsl(var(--primary) / 0.18) 0px, transparent 50%),
+      radial-gradient(at 85% 5%, hsl(260 70% 60% / 0.14) 0px, transparent 50%),
+      radial-gradient(at 5% 85%, hsl(160 70% 42% / 0.1) 0px, transparent 50%),
+      radial-gradient(at 90% 90%, hsl(199 89% 55% / 0.08) 0px, transparent 50%);
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+  .animate-slide-up {
+    animation: slideUp 0.4s ease-out forwards;
+  }
+  .animate-scale-in {
+    animation: scaleIn 0.2s ease-out forwards;
+  }
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--muted)) 25%,
+      hsl(var(--muted-foreground) / 0.1) 50%,
+      hsl(var(--muted)) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}
